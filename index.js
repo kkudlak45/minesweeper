@@ -146,6 +146,7 @@ function updateCell(cell, row, col) {
 
 function handleLeftClick(e) {
     if (gameOver) return;
+    if (e.shiftKey) handleRightClick(e);
 
     const row = parseInt(e.target.dataset.row);
     const col = parseInt(e.target.dataset.col);
