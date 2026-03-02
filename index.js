@@ -123,6 +123,15 @@ function updateCell(cell, row, col) {
     if (flagged[row][col]) {
         cell.classList.add('flagged');
         cell.textContent = '🚩';
+
+        // If game is over, show if flag is correct or false
+        if (gameOver) {
+            if (grid[row][col] === -1) {
+                cell.classList.add('correct-flag');
+            } else {
+                cell.classList.add('false-flag');
+            }
+        }
     } else if (revealed[row][col]) {
         cell.classList.add('revealed');
         if (grid[row][col] === -1) {
@@ -200,6 +209,10 @@ function revealAllMines() {
         for (let j = 0; j < GRID_SIZE; j++) {
             if (grid[i][j] === -1) {
                 revealed[i][j] = true;
+                const cell = cellElements[i][j];
+                updateCell(cell, i, j);
+            } else if (flagged[i][j]) {
+                // Update flagged cells to show false flags
                 const cell = cellElements[i][j];
                 updateCell(cell, i, j);
             }
